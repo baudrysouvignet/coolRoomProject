@@ -8,6 +8,7 @@ use App\Repository\CategoryRepository;
 use App\Services\UploadImageSevices;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -33,16 +34,12 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
-            $imageFile = $form->get('image')->getData();
-            if ($imageFile) {
-                $newFilename = (new UploadImageSevices(
-                    $imageFile,
-                    $this->getParameter('image_directory'),
-                    $slugger
-                ))->uploadImage();
-                $category->setImage($newFilename);
-            }
+            (new UploadImageSevices(
+                $this->getParameter('image_directory'),
+                $form,
+                $category,
+                $slugger
+            ))->uploadImage();
 
             $entityManager->persist($category);
             $entityManager->flush();
@@ -65,12 +62,19 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_category_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Category $category, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Category $category, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            (new UploadImageSevices(
+                $this->getParameter('image_directory'),
+                $form,
+                $category,
+                $slugger
+            ))->uploadImage();
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_category_index', [], Response::HTTP_SEE_OTHER);

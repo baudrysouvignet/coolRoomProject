@@ -21,7 +21,7 @@
                 <td>{{ category.id }}</td>
                 <td>{{ category.title }}</td>
                 <td>{{ category.description }}</td>
-                <td>{{ category.image }}<a href="{{ asset('uploads/images/' ~ category.image) }}">View brochure (PDF)</a></td>
+                <td>{{ category.image }}<a href="{{ asset('uploads/images/' ~ category.image) }}">Voir l'image</a></td>
                 <td>
                     <a href="{{ path('app_category_show', {'id': category.id}) }}">show</a>
                     <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>
