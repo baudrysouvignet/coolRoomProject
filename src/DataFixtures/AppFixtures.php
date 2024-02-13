@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
-use App\Entity\Manga;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
@@ -37,6 +36,15 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
         }
+
+        // Category
+        // for ($i = 0; $i < 5; $i++) {
+        //     $category = new Category();
+        //     $category->setTitle($this->faker->sentence(3))
+        //         ->setDescription($this->faker->paragraph(3))
+        //         ->setImage('https://picsum.photos/200/300');
+        //     $manager->persist($category);
+        // }
 
         $manager->flush();
     }
