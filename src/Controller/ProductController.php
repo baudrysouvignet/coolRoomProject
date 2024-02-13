@@ -72,6 +72,9 @@ class ProductController extends AbstractController
                 $product,
                 $slugger
             ))->uploadImage();
+            
+            $product->setUpdatedAt(new \DateTimeImmutable());
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);

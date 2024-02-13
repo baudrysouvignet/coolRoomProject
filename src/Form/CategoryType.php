@@ -19,7 +19,7 @@ class CategoryType extends AbstractType
             ->add('image', FileType::class, [
                 'label' => 'Image (JPG, PNG, GIF)',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
 
             ]);
     }

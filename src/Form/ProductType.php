@@ -20,12 +20,12 @@ class ProductType extends AbstractType
             ->add('image', FileType::class, [
                 'label' => 'Image (JPG, PNG, GIF)',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
 
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'id',
+                'choice_label' => 'title',
             ]);
     }
 
