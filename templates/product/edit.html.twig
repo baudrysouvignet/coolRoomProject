@@ -1,11 +1,23 @@
 {% extends 'base.html.twig' %}
+{% import 'insert/_form-row.html.twig' as formRow %}
 
 {% block title %}Edit Product{% endblock %}
 
 {% block body %}
     <h1>Edit Product</h1>
 
-    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+    <h1>Créer un produit</h1>
+
+    <div class="card-body">
+    {{ form_start(form) }}
+        {{ formRow.formRow(form.title) }} 
+        {{ formRow.formRow(form.description) }} 
+        {{ form_widget(form.image, {'required': false}) }}
+        {{ formRow.formRow(form.category) }}
+
+        <button type="submit" class="btn btn-outline-primary mt-4">Mettre a jour le produit</button>
+    {{ form_end(form) }}
+    </div>
 
     <a href="{{ path('app_product_index') }}">back to list</a>
 
