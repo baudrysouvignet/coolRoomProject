@@ -1,0 +1,13 @@
+{% macro formRow(child) %}
+
+<div class="input-group input-group-outline my-3 w-100" style="flex-direction:column;">
+    {{ form_label(child) }}
+
+    {% set existingAttrs = child.vars.attr %}
+    {% set newAttrs = {'class': 'form-control', 'style': 'width:100%;'} %}
+    {{ form_widget(child, {'attr': existingAttrs|merge(newAttrs)}) }}
+    
+    {{ form_errors(child) }}
+</div>
+
+{% endmacro %}

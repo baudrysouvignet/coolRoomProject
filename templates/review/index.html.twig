@@ -1,41 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Review index{% endblock %}
+{% block title %}Admin - Avis{% endblock %}
 
 {% block body %}
-    <h1>Review index</h1>
+    <h1>Les Avis Utilisateur</h1>
 
-    <table class="table">
-        <thead>
+    <a href="{{ path('app_review_new') }}" class="btn btn-outline-primary mt-4 w-100">Creer un avis</a>
+
+    {% import 'insert/_table-td.html.twig' as tableTd %}
+
+    {% set reviewRows = [] %}
+    {% for attribute, review in reviews %}
+        {% set row %}
             <tr>
-                <th>Id</th>
-                <th>CreatedAt</th>
-                <th>Note</th>
-                <th>Description</th>
-                <th>Moderated</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for review in reviews %}
-            <tr>
-                <td>{{ review.id }}</td>
-                <td>{{ review.createdAt ? review.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ review.note }}</td>
-                <td>{{ review.description }}</td>
-                <td>{{ review.moderated }}</td>
+                {{ tableTd.td(review.id) }}
+                {{ tableTd.td(review.note) }}
+                {{ tableTd.td(review.description) }}
+                {{ tableTd.td(review.createdAt ? review.createdAt|date('Y-m-d H:i:s') : '') }}
+                {{ tableTd.td(review.moderated) }}
                 <td>
-                    <a href="{{ path('app_review_show', {'id': review.id}) }}">show</a>
-                    <a href="{{ path('app_review_edit', {'id': review.id}) }}">edit</a>
+                        <a href="{{ path('app_review_show', {'id': review.id}) }}">show</a>
+                        <a href="{{ path('app_review_edit', {'id': review.id}) }}">edit</a>
                 </td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        {% endset %}
+        {% set reviewRows = reviewRows|merge([row]) %}
+    {% endfor %}
 
-    <a href="{{ path('app_review_new') }}">Create new</a>
+    {{ include('insert/_table.html.twig', {
+        'columns': ['Id', 'Note', 'Description', 'Date de création', 'Êtat', 'Actions'], 
+        'rows': reviewRows
+        }) 
+    }}
 {% endblock %}

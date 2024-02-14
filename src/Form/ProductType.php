@@ -9,6 +9,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ProductType extends AbstractType
 {
@@ -18,13 +20,13 @@ class ProductType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('image', FileType::class, [
-                'label' => 'Image (JPG, PNG, GIF)',
                 'mapped' => false,
                 'required' => true,
 
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
+                'label_attr' => ['class' => ''],
                 'choice_label' => 'title',
             ]);
     }

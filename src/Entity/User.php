@@ -38,9 +38,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'userReview')]
     private Collection $reviews;
 
+    #[ORM\OneToMany(targetEntity: UserCollection::class, mappedBy: 'user')]
+    private Collection $userCollections;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+        $this->userCollections = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -149,6 +153,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($review->getUserReview() === $this) {
                 $review->setUserReview(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserCollection>
+     */
+    public function getUserCollections(): Collection
+    {
+        return $this->userCollections;
+    }
+
+    public function addUserCollection(UserCollection $userCollection): static
+    {
+        if (!$this->userCollections->contains($userCollection)) {
+            $this->userCollections->add($userCollection);
+            $userCollection->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserCollection(UserCollection $userCollection): static
+    {
+        if ($this->userCollections->removeElement($userCollection)) {
+            // set the owning side to null (unless already changed)
+            if ($userCollection->getUser() === $this) {
+                $userCollection->setUser(null);
             }
         }
 

@@ -37,10 +37,14 @@ class Product
     #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'priductReview')]
     private Collection $reviews;
 
+    #[ORM\ManyToMany(targetEntity: UserCollection::class, mappedBy: 'product')]
+    private Collection $userCategorie;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+        $this->userCategorie = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,6 +149,33 @@ class Product
             if ($review->getPriductReview() === $this) {
                 $review->setPriductReview(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserCollection>
+     */
+    public function getUserCategorie(): Collection
+    {
+        return $this->userCategorie;
+    }
+
+    public function addUserCategorie(UserCollection $userCategorie): static
+    {
+        if (!$this->userCategorie->contains($userCategorie)) {
+            $this->userCategorie->add($userCategorie);
+            $userCategorie->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserCategorie(UserCollection $userCategorie): static
+    {
+        if ($this->userCategorie->removeElement($userCategorie)) {
+            $userCategorie->removeProduct($this);
         }
 
         return $this;

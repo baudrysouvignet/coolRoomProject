@@ -1,0 +1,8 @@
+{% macro td(content) %}
+    <td>
+        <span class="badge badge-dot me-4">
+            <i class="bg-info"></i>
+            <span class="text-dark text-xs">{{ content|raw }}</span>
+        </span>
+    </td>
+{% endmacro %}

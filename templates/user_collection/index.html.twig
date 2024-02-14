@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserCollection index{% endblock %}
+
+{% block body %}
+    <h1>UserCollection index</h1>
+
+    <a href="{{ path('app_user_collection_new') }}" class="btn btn-outline-primary mt-4 w-100">Creer une catégorie</a>
+
+    {% import 'insert/_table-td.html.twig' as tableTd %}
+
+    {% set user_collectionRows = [] %}
+    {% for attribute, user_collection in user_collections %}
+        {% set row %}
+            <tr>
+                {{ tableTd.td(user_collection.id) }}
+                {{ tableTd.td(user_collection.name) }}
+                <td>
+                        <a href="{{ path('app_user_collection_show', {'id': user_collection.id}) }}">show</a>
+                        <a href="{{ path('app_user_collection_edit', {'id': user_collection.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% endset %}
+        {% set user_collectionRows = user_collectionRows|merge([row]) %}
+    {% endfor %}
+
+    {{ include('insert/_table.html.twig', {
+        'columns': ['Id', 'Nom'], 
+        'rows': user_collectionRows
+        }) 
+    }}
+{% endblock %}
