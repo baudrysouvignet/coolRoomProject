@@ -5,31 +5,28 @@
 {% block body %}
     <h1>UserCollection index</h1>
 
-    <table class="table">
-        <thead>
+    <a href="{{ path('app_user_collection_new') }}" class="btn btn-outline-primary mt-4 w-100">Creer une catégorie</a>
+
+    {% import 'insert/_table-td.html.twig' as tableTd %}
+
+    {% set user_collectionRows = [] %}
+    {% for attribute, user_collection in user_collections %}
+        {% set row %}
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user_collection in user_collections %}
-            <tr>
-                <td>{{ user_collection.id }}</td>
-                <td>{{ user_collection.name }}</td>
+                {{ tableTd.td(user_collection.id) }}
+                {{ tableTd.td(user_collection.name) }}
                 <td>
-                    <a href="{{ path('app_user_collection_show', {'id': user_collection.id}) }}">show</a>
-                    <a href="{{ path('app_user_collection_edit', {'id': user_collection.id}) }}">edit</a>
+                        <a href="{{ path('app_user_collection_show', {'id': user_collection.id}) }}">show</a>
+                        <a href="{{ path('app_user_collection_edit', {'id': user_collection.id}) }}">edit</a>
                 </td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        {% endset %}
+        {% set user_collectionRows = user_collectionRows|merge([row]) %}
+    {% endfor %}
 
-    <a href="{{ path('app_user_collection_new') }}">Create new</a>
+    {{ include('insert/_table.html.twig', {
+        'columns': ['Id', 'Nom'], 
+        'rows': user_collectionRows
+        }) 
+    }}
 {% endblock %}

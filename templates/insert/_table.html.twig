@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="table-responsive">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr>
+            {% for column in columns %}
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ column }}</th>
+            {% endfor %}
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+       {% for row in rows %}
+            {{ row|raw }}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
