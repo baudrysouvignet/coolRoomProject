@@ -17,7 +17,7 @@ class UserCollectionController extends AbstractController
     #[Route('/', name: 'app_user_collection_index', methods: ['GET'])]
     public function index(UserCollectionRepository $userCollectionRepository): Response
     {
-        return $this->render('user_collection/index.html.twig', [
+        return $this->render('admin/user_collection/index.html.twig', [
             'user_collections' => $userCollectionRepository->findAll(),
         ]);
     }
@@ -36,7 +36,7 @@ class UserCollectionController extends AbstractController
             return $this->redirectToRoute('app_user_collection_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user_collection/new.html.twig', [
+        return $this->render('admin/user_collection/new.html.twig', [
             'user_collection' => $userCollection,
             'form' => $form,
             'action' => 'new'
@@ -46,7 +46,7 @@ class UserCollectionController extends AbstractController
     #[Route('/{id}', name: 'app_user_collection_show', methods: ['GET'])]
     public function show(UserCollection $userCollection): Response
     {
-        return $this->render('user_collection/show.html.twig', [
+        return $this->render('admin/user_collection/show.html.twig', [
             'user_collection' => $userCollection,
         ]);
     }
@@ -63,7 +63,7 @@ class UserCollectionController extends AbstractController
             return $this->redirectToRoute('app_user_collection_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user_collection/new.html.twig', [
+        return $this->render('admin/user_collection/new.html.twig', [
             'user_collection' => $userCollection,
             'form' => $form,
             'action' => 'update'
