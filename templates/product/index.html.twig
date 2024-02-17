@@ -13,7 +13,7 @@
     {% for attribute, product in products %}
         {% set row %}
             <tr>
-                {{ tableTd.td(attribute) }}
+                {{ tableTd.td(product.id) }}
                 {{ tableTd.td(product.title) }}
                 {{ tableTd.td(product.description) }}
                 {{ tableTd.td(product.image ~ ' | <a href="' ~ asset('uploads/images/' ~ product.image) ~ '" style="text-decoration:underline;">Voir l\'image</a>') }}                   {{ tableTd.td(product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '') }}

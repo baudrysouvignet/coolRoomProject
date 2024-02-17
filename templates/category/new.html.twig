@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% import 'insert/_form-row.html.twig' as formRow %}
+{% import 'insert/_delete-form.html.twig' as deleteForm %}
 
 {% set titre %}
     {% if action != 'new' %}
@@ -29,9 +30,8 @@
         <button type="submit" class="btn btn-outline-primary mt-4">{{titre}}</button>  
     {{ form_end(form) }}
 
-
 {% if action != 'new' %}
-{{ include('category/_delete_form.html.twig') }}
+    {{ deleteForm.deleteForm('app_category_delete', category.id) }} 
 {% endif %} 
 
     <a href="{{ path('app_category_index') }}" class="btn btn-outline-secondary mt-4">Retourner à la liste</a>

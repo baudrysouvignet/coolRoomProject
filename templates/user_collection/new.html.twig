@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% import 'insert/_form-row.html.twig' as formRow %}
+{% import 'insert/_delete-form.html.twig' as deleteForm %}
 
 {% set titre %}
     {% if action != 'new' %}
@@ -25,7 +26,7 @@
 
 
 {% if action != 'new' %}
-{{ include('user_collection/_delete_form.html.twig') }}
+    {{ deleteForm.deleteForm('app_user_collection_delete', user_collection.id) }} 
 {% endif %} 
     
     <a href="{{ path('app_user_collection_index') }}" class="btn btn-outline-secondary mt-4">Retourner à la liste</a>

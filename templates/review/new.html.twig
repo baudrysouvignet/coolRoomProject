@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% import 'insert/_form-row.html.twig' as formRow %}
+{% import 'insert/_delete-form.html.twig' as deleteForm %}
 
 {% block title %}Nouvelle Avis{% endblock %}
 
@@ -18,8 +19,8 @@
     {{ form_end(form) }}
 
 {% if action != 'new' %}
-    {{ include('review/_delete_form.html.twig') }}
-{% endif %}
+    {{ deleteForm.deleteForm('app_review_delete', review.id) }} 
+{% endif %} 
         
 <a href="{{ path('app_review_index') }}" class="btn btn-outline-secondary mt-4">Retourner à la liste</a>
 {% endblock %}
