@@ -39,6 +39,7 @@ class ReviewController extends AbstractController
         return $this->render('review/new.html.twig', [
             'review' => $review,
             'form' => $form,
+            'action' => 'new'
         ]);
     }
 
@@ -62,16 +63,17 @@ class ReviewController extends AbstractController
             return $this->redirectToRoute('app_review_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('review/edit.html.twig', [
+        return $this->render('review/new.html.twig', [
             'review' => $review,
             'form' => $form,
+            'action' => 'edit'
         ]);
     }
 
     #[Route('/{id}', name: 'app_review_delete', methods: ['POST'])]
     public function delete(Request $request, Review $review, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$review->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $review->getId(), $request->request->get('_token'))) {
             $entityManager->remove($review);
             $entityManager->flush();
         }

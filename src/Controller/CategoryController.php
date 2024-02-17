@@ -50,6 +50,7 @@ class CategoryController extends AbstractController
         return $this->render('category/new.html.twig', [
             'category' => $category,
             'form' => $form,
+            'action' => 'new'
         ]);
     }
 
@@ -80,9 +81,10 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('app_category_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('category/edit.html.twig', [
+        return $this->render('category/new.html.twig', [
             'category' => $category,
             'form' => $form,
+            'action' => 'update'
         ]);
     }
 

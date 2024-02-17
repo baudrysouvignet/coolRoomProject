@@ -44,6 +44,7 @@ class UserController extends AbstractController
         return $this->render('user/new.html.twig', [
             'user' => $user,
             'form' => $form,
+            'action' => 'new'
         ]);
     }
 
@@ -62,14 +63,20 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->get('password')->getData();
+            $hashedPassword = password_hash($plainPassword, PASSWORD_BCRYPT);
+            $user->setPassword($hashedPassword);
+
+            $entityManager->persist($user);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('user/new.html.twig', [
             'user' => $user,
             'form' => $form,
+            'action' => 'update'
         ]);
     }
 

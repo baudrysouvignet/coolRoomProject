@@ -1,11 +1,38 @@
 {% extends 'base.html.twig' %}
+{% import 'insert/_form-row.html.twig' as formRow %}
 
-{% block title %}New Category{% endblock %}
+{% set titre %}
+    {% if action != 'new' %}
+        Modifier
+    {% else %}
+        Créer
+    {% endif %}
+    une catégorie
+{% endset %}
+
+
+{% block title %}{{titre}}{% endblock %}
 
 {% block body %}
-    <h1>Create new Category</h1>
+    <h1>{{titre}}</h1>
 
-    {{ include('category/_form.html.twig') }}
+    {{ form_start(form) }}
+        {{ formRow.formRow(form.title) }} 
+        {{ formRow.formRow(form.description) }} 
+        
+        {% if action != 'new' %}
+            {{ formRow.formRow(form.image, {'required': false}) }}
+        {% else %}
+            {{ formRow.formRow(form.image) }} 
+        {% endif %}
 
-    <a href="{{ path('app_category_index') }}">back to list</a>
+        <button type="submit" class="btn btn-outline-primary mt-4">{{titre}}</button>  
+    {{ form_end(form) }}
+
+
+{% if action != 'new' %}
+{{ include('category/_delete_form.html.twig') }}
+{% endif %} 
+
+    <a href="{{ path('app_category_index') }}" class="btn btn-outline-secondary mt-4">Retourner à la liste</a>
 {% endblock %}

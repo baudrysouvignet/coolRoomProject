@@ -1,20 +1,40 @@
 {% extends 'base.html.twig' %}
 {% import 'insert/_form-row.html.twig' as formRow %}
 
-{% block title %}Créer un produit{% endblock %}
+{% set titre %}
+    {% if action != 'new' %}
+        Modifier
+    {% else %}
+        Créer
+    {% endif %}
+    un produit
+{% endset %}
+
+{% block title %}{{titre}}{% endblock %}
 
 {% block body %}
-    <h1>Créer un produit</h1>
+    <h1>{{titre}}</h1>
 
     <div class="card-body">
     {{ form_start(form) }}
         {{ formRow.formRow(form.title) }} 
         {{ formRow.formRow(form.description) }} 
-        {{ formRow.formRow(form.image) }} 
+        
+        {% if action != 'new' %}
+            {{ formRow.formRow(form.image, {'required': false}) }}
+        {% else %}
+            {{ formRow.formRow(form.image) }} 
+        {% endif %}
+
         {{ formRow.formRow(form.category) }}
 
-        <button type="submit" class="btn btn-outline-primary mt-4">Créer le produit</button>
+        <button type="submit" class="btn btn-outline-primary mt-4">{{titre}}</button>  
     {{ form_end(form) }}
     </div>
+
+{% if action != 'new' %}
+    {{ include('product/_delete_form.html.twig') }}
+{% endif %}    
+<a href="{{ path('app_product_index') }}" class="btn btn-outline-secondary mt-4">Retourner à la liste</a>
 {% endblock %}
         

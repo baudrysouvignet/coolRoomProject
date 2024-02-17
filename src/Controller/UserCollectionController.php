@@ -39,6 +39,7 @@ class UserCollectionController extends AbstractController
         return $this->render('user_collection/new.html.twig', [
             'user_collection' => $userCollection,
             'form' => $form,
+            'action' => 'new'
         ]);
     }
 
@@ -62,9 +63,10 @@ class UserCollectionController extends AbstractController
             return $this->redirectToRoute('app_user_collection_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user_collection/edit.html.twig', [
+        return $this->render('user_collection/new.html.twig', [
             'user_collection' => $userCollection,
             'form' => $form,
+            'action' => 'update'
         ]);
     }
 
