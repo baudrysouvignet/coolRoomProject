@@ -21,13 +21,12 @@
         {{ linkHeader.linkHeader('Category', 'app_category_index' ,'category') }} 
         {{ linkHeader.linkHeader('Les avis', 'app_review_index' ,'star') }} 
         {{ linkHeader.linkHeader('Utilisteurs', 'app_user_index' ,'group') }} 
-        <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
-        </li>
       {% endif %}
-
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">{% if app.user %}Gestion du compte{% else %}Bienvenue{% endif %}</h6>
+        </li>
       {% if app.user %}   
-        {{ linkHeader.linkHeader('Deconnxion', 'app_logout' ,'person') }}      
+        {{ linkHeader.linkHeader('Déconnexion', 'app_logout' ,'person') }}      
       {% else %}
         {{ linkHeader.linkHeader('Se connecter', 'app_login' ,'login') }}
         {{ linkHeader.linkHeader("S'inscrire", 'app_register' ,'assignment') }}

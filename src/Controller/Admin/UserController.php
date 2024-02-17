@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
@@ -45,14 +45,6 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form,
             'action' => 'new'
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
-    {
-        return $this->render('admin/user/show.html.twig', [
-            'user' => $user,
         ]);
     }
 
