@@ -23,6 +23,11 @@
                   <p class="mb-0 font-weight-normal text-sm">
                     Collection #{{collection.id}}
                   </p>
+                  
+                {% if collection.user == app.user %}
+                <a href="{{ path('delete_public_collection', {'id': collection.id}) }}"><button type="button" class="btn btn-outline-danger btn-sm mb-0">Supprimer</button></a>
+                {% endif %}
+                  
                 </div>
               </div>
             </div>
@@ -35,7 +40,7 @@
               </div>
               <div class="row" style="row-gap: 80px;">
               {% for product in products %}
-                {{ card.card(product.title, product.createdAt, product.description, 'path', product.image) }}
+                {{ card.card(product.title, product.createdAt, product.description, 'app_home', product.image, [collection.id,product.id]) }}
               {% endfor %}
               </div>
         </div>

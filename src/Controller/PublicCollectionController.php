@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Entity\UserCollection;
 use App\Form\PublicUserCollectionType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,19 +14,6 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/user/collection')]
 class PublicCollectionController extends AbstractController
 {
-    #[Route('/{id}', name: 'public_collection')]
-    public function index(
-        UserCollection $userCollection
-    ): Response {
-        $products = $userCollection->getProduct();
-
-        return $this->render('pages/public_collection/index.html.twig', [
-            'collection' => $userCollection,
-
-            'products' => $products,
-        ]);
-    }
-
     #[Route('/new', name: 'add_public_collection')]
     public function new(
         Request $request,
@@ -48,6 +36,48 @@ class PublicCollectionController extends AbstractController
         return $this->render('pages/public_collection/new.html.twig', [
             'user_collection' => $userCollection,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/remove/{id}/{product}', name: 'remove_public_collection')]
+    public function remove(
+        UserCollection $userCollection,
+        $product,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if ($userCollection->getUser() === $this->getUser()) {
+            $product = $entityManager->getRepository(Product::class)->find($product);
+            $userCollection->removeProduct($product);
+            $entityManager->persist($userCollection);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('public_collection', ['id' => $userCollection->getId()]);
+    }
+
+
+    #[Route('/delete/{id}', name: 'delete_public_collection')]
+    public function delete(
+        UserCollection $userCollection,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if ($userCollection->getUser() === $this->getUser()) {
+            $entityManager->remove($userCollection);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/{id}', name: 'public_collection')]
+    public function index(
+        UserCollection $userCollection
+    ): Response {
+        $products = $userCollection->getProduct();
+
+        return $this->render('pages/public_collection/index.html.twig', [
+            'collection' => $userCollection,
+            'products' => $products,
         ]);
     }
 }
