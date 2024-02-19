@@ -1,0 +1,8 @@
+
+{% macro deleteForm(path, id) %}
+
+<form method="post" action="{{ path(path, {'id': id}) }}" onsubmit="return confirm('Est-tu sur de vouloir supprimer cette item ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ id) }}">
+    <button class="btn">Supprimer</button>
+</form>
+{% endmacro %}

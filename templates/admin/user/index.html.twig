@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Utilisateur {% endblock %}
+
+{% block body %}
+    <h1>Les utilisateur</h1>
+
+    <a href="{{ path('app_user_new') }}" class="btn btn-outline-primary mt-4 w-100">Créer un utilisateur</a>
+
+    {% import 'insert/_table-td.html.twig' as tableTd %}
+
+    {% set userRows = [] %}
+    {% for attribute, user in users %}
+        {% set row %}
+            <tr>
+                {{ tableTd.td(user.id) }}
+                {{ tableTd.td(user.email) }}
+                {{ tableTd.td(user.roles ? user.roles|json_encode : '') }}
+                {{ tableTd.td(user.pseudo) }}
+                <td>
+                        <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% endset %}
+        {% set userRows = userRows|merge([row]) %}
+    {% endfor %}
+
+    {{ include('insert/_table.html.twig', {
+        'columns': ['Id', 'Email', 'Role', 'Pseudo', 'Actions'], 
+        'rows': userRows
+        }) 
+    }}
+{% endblock %}

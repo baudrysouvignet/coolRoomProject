@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% import 'insert/_form-row.html.twig' as formRow %}
+{% import 'insert/_delete-form.html.twig' as deleteForm %}
+
+{% block title %}Nouvelle Avis{% endblock %}
+
+{% block body %}
+    <h1>Create new Review</h1>
+
+    {{ form_start(form) }}
+        {{ formRow.formRow(form.note) }} 
+        {{ formRow.formRow(form.description) }} 
+        {{ formRow.formRow(form.moderated) }} 
+        {{ formRow.formRow(form.userReview) }}
+        {{ formRow.formRow(form.priductReview) }}
+
+        <button type="submit" class="btn btn-outline-primary mt-4">{% if action != 'new' %}Modifier{% else %}Créer{% endif %} la review</button>
+
+    {{ form_end(form) }}
+
+{% if action != 'new' %}
+    {{ deleteForm.deleteForm('app_review_delete', review.id) }} 
+{% endif %} 
+        
+<a href="{{ path('app_review_index') }}" class="btn btn-outline-secondary mt-4">Retourner à la liste</a>
+{% endblock %}

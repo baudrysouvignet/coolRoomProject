@@ -10,22 +10,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserCollectionType extends AbstractType
+class PublicUserCollectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('product', EntityType::class, [
-                'class' => Product::class,
-                'choice_label' => 'title',
-                'multiple' => true,
-                'expanded' => true,
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'email',
-            ]);
+            ->add('name');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

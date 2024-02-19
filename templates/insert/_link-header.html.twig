@@ -1,6 +1,6 @@
-{% macro linkHeader(name, root, icon) %}
+{% macro linkHeader(name, root, icon, argument = []) %}
 <li class="nav-item">
-    <a class="nav-link text-white {% if app.request.attributes.get('_route') == root %}active bg-gradient-primary{% endif %}" href="{{ path(root) }}">
+    <a style="overflow:hidden;" class="nav-link text-white {% if app.request.attributes.get('_route') == root and argument ==[] %}active bg-gradient-primary{% endif %}" href="{{ path(root, argument) }}">
     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
         <i class="material-icons opacity-10">{{icon}}</i>
     </div>

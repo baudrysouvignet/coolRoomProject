@@ -35,10 +35,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pseudo = null;
 
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'userReview')]
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'userReview', cascade: ["remove"])]
     private Collection $reviews;
 
-    #[ORM\OneToMany(targetEntity: UserCollection::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: UserCollection::class, mappedBy: 'user', cascade: ["remove"])]
     private Collection $userCollections;
 
     public function __construct()

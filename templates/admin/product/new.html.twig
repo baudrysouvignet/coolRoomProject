@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% import 'insert/_form-row.html.twig' as formRow %}
+{% import 'insert/_delete-form.html.twig' as deleteForm %}
+
+{% set titre %}
+    {% if action != 'new' %}
+        Modifier
+    {% else %}
+        Créer
+    {% endif %}
+    un produit
+{% endset %}
+
+{% block title %}{{titre}}{% endblock %}
+
+{% block body %}
+    <h1>{{titre}}</h1>
+
+    <div class="card-body">
+    {{ form_start(form) }}
+        {{ formRow.formRow(form.title) }} 
+        {{ formRow.formRow(form.description) }} 
+        
+        {% if action != 'new' %}
+            {{ formRow.formRow(form.image, {'required': false}) }}
+        {% else %}
+            {{ formRow.formRow(form.image) }} 
+        {% endif %}
+
+        {{ formRow.formRow(form.category) }}
+
+        <button type="submit" class="btn btn-outline-primary mt-4">{{titre}}</button>  
+    {{ form_end(form) }}
+    </div>
+
+{% if action != 'new' %}
+    {{ deleteForm.deleteForm('app_product_delete', product.id) }} 
+{% endif %} 
+
+<a href="{{ path('app_product_index') }}" class="btn btn-outline-secondary mt-4">Retourner à la liste</a>
+{% endblock %}
+        

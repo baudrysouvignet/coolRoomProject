@@ -18,6 +18,7 @@ class ReviewType extends AbstractType
     {
         $builder
             ->add('note', IntegerType::class, [
+                'label' => 'La note',
                 'attr' => [
                     'min' => 0,
                     'max' => 5
@@ -25,6 +26,7 @@ class ReviewType extends AbstractType
             ])
             ->add('description')
             ->add('moderated', ChoiceType::class, [
+                'label' => 'Statut',
                 'choices' => [
                     'Suspendu' => 'suspended',
                     'Publique' => 'public'
@@ -34,12 +36,14 @@ class ReviewType extends AbstractType
                 'data' => 'suspended'
             ])
             ->add('userReview', EntityType::class, [
+                'label' => 'Utilisateurs',
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'email',
             ])
             ->add('priductReview', EntityType::class, [
+                'label' => 'Le produit',
                 'class' => Product::class,
-                'choice_label' => 'id',
+                'choice_label' => 'title',
             ]);
     }
 

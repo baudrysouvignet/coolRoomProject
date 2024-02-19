@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% import 'insert/_card.html.twig' as card %}
+{% import 'insert/_mini-card.html.twig' as miniCard %}
+
+{% block title %}Les produits{% endblock %}
+
+{% block body %}
+        <div class="col-12 mt-4">
+              <div class="mb-5 ps-3">
+                <h6 class="mb-1">Les produits</h6>
+                <p class="text-sm">Découvrez les produits de la communauté !</p>
+              </div>
+              <div class="row" style="row-gap: 80px;">
+              {% for product in products %}
+                {{ card.card(product.title, product.createdAt, product.description, 'app_home', product.image) }}
+              {% endfor %}
+              </div>
+        </div>
+{% endblock %}

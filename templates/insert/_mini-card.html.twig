@@ -1,0 +1,21 @@
+{% macro miniCard(id, title, number) %}
+<a href="" class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+    <div >
+        <div class="card" >
+            <div class="card-header p-3 pt-2">
+            <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute" style="top: -20px !important; background: {{ random(['#FFA726', '#1A73E8', '#49a3f1', '#EF5350', '#2e6930', '#66BB6A', '#EC407A', '#FF7043', '#3F51B5', '#FFC107', '#8BC34A', '#FF5252', '#303F9F', '#FF5722', '#8D6E63']) }};">
+                <i class="material-icons opacity-10">weekend</i>
+            </div>
+            <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize">#{{id}}</p>
+                <h4 class="mb-0">{{title}}</h4>
+            </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-footer p-3">
+            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">{{number}} </span> Produits</p>
+            </div>
+        </div>
+    </div>
+</a>
+{% endmacro %}
