@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% import 'insert/_form-row.html.twig' as formRow %}
+{% import 'insert/_delete-form.html.twig' as deleteForm %}
+
+{% import 'insert/_card.html.twig' as card %}
+
+{% set titre %}{{collection.name}}{% endset %}
+
+{% block title %}{{collection.name}}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-2 px-md-4">
+          <div class="page-header min-height-100 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
+            <span class="mask  bg-gradient-secondary  opacity-6"></span>
+          </div>
+          <div class="card card-body mx-3 mx-md-4 mt-n6">
+            <div class="row gx-4 mb-2">
+              <div class="col-auto my-auto">
+                <div class="h-100">
+                  <h5 class="mb-1">
+                    {{collection.name}}
+                  </h5>
+                  <p class="mb-0 font-weight-normal text-sm">
+                    Collection #{{collection.id}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         <div class="col-12 mt-4">
+              <div class="mb-5 ps-3">
+                <h6 class="mb-1">Les produits</h6>
+                <p class="text-sm">Nombre de produits : {{ products|length }}</p>
+              </div>
+              <div class="row" style="row-gap: 80px;">
+              {% for product in products %}
+                {{ card.card(product.title, product.createdAt, product.description, 'path', product.image) }}
+              {% endfor %}
+              </div>
+        </div>
+{% endblock %}
