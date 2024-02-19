@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Entity\UserCollection;
 use App\Form\PublicUserCollectionType;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+
 
 #[Route('/user/collection')]
 class PublicCollectionController extends AbstractController
@@ -71,13 +73,28 @@ class PublicCollectionController extends AbstractController
 
     #[Route('/{id}', name: 'public_collection')]
     public function index(
-        UserCollection $userCollection
+        UserCollection $userCollection,
+        CategoryRepository $categoryRepository
     ): Response {
         $products = $userCollection->getProduct();
+        $category = $categoryRepository->findAll();
+
+        if (isset($_GET['cat'])) {
+            $productFilter = [];
+            foreach ($products as $product) {
+                if ($product->getCategory()->getId() == $_GET['cat']) {
+                    $productFilter[] = $product;
+                }
+            }
+            if ($_GET['cat'] != -1) {
+                $products = $productFilter;
+            }
+        }
 
         return $this->render('pages/public_collection/index.html.twig', [
             'collection' => $userCollection,
             'products' => $products,
+            'category' => $category
         ]);
     }
 }

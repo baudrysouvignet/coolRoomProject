@@ -35,13 +35,28 @@
         </div>
          <div class="col-12 mt-4">
               <div class="mb-5 ps-3">
-                <h6 class="mb-1">Les produits</h6>
-                <p class="text-sm">Nombre de produits : {{ products|length }}</p>
-              </div>
-              <div class="row" style="row-gap: 80px;">
-              {% for product in products %}
-                {{ card.card(product.title, product.createdAt, product.description, 'app_home', product.image, [collection.id,product.id]) }}
-              {% endfor %}
-              </div>
+                <div class="col-12 mt-4">
+                    <div class="mb-5 ps-3">
+                        <h6 class="mb-1">Les produits</h6>
+                        <p class="text-sm">Nombre de produits : {{ products|length }}</p>
+                        <select onchange="window.location.href = '?cat=' + this.value;">
+                            <option value="-1">Tous</option>
+                            
+                            {% for categorie in category %}
+                                <option 
+                                    {% if app.request.query.all['cat'] is defined and app.request.query.all['cat'] == categorie.id %}
+                                        selected
+                                    {% endif %}
+                                 value="{{ categorie.id }}">{{ categorie.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="row" style="row-gap: 80px;">
+                        {% for product in products %}
+                            {{ card.card(product.title, product.createdAt, product.description, 'app_home', product.image, [collection.id,product.id]) }}
+                        {% endfor %}
+                    </div>
+                </div>
+    
         </div>
 {% endblock %}
