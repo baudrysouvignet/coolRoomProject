@@ -11,7 +11,22 @@
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
+      
+        {{ dump(headerData.collections) }}
         {{ linkHeader.linkHeader('Accueil', 'app_home' ,'home') }} 
+        {{ linkHeader.linkHeader('Produits', 'app_product' ,'inventory_2') }} 
+        {{ linkHeader.linkHeader('Collections', 'app_collections' ,'receipt_long') }}
+      {% if app.user %}    
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Mes collections</h6>
+        </li>
+        {% if headerData.collections != [] %}
+          {% for collection in headerData.collections %}
+            {{ linkHeader.linkHeader(collection.name, 'app_home' ,'collections_bookmark') }}  
+          {% endfor %}
+        {% endif %}  
+        {{ linkHeader.linkHeader('Nouvelle collection', 'app_home' ,'add') }}  
+      {% endif %}    
       {% if app.user and 'ROLE_ADMIN' in app.user.roles %}    
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Administration</h6>

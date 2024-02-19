@@ -1,9 +1,30 @@
 {% extends 'base.html.twig' %}
 {% import 'insert/_card.html.twig' as card %}
+{% import 'insert/_mini-card.html.twig' as miniCard %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
+        <div class="container-fluid px-2 px-md-4">
+      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
+        <span class="mask  bg-gradient-primary  opacity-6"></span>
+      </div>
+      <div class="card card-body mx-3 mx-md-4 mt-n6">
+        <div class="row gx-4 mb-2">
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                Bienvenue découvre, partage et crée t'as collection !
+              </h5>
+              <p class="mb-0 font-weight-normal text-sm">
+                CoolRoom
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
         <div class="col-12 mt-4">
               <div class="mb-5 ps-3">
                 <h6 class="mb-1">Les produits</h6>
@@ -12,6 +33,20 @@
               <div class="row" style="row-gap: 80px;">
               {% for product in products %}
                 {{ card.card(product.title, product.createdAt, product.description, 'path', product.image) }}
+              {% endfor %}
+              </div>
+        </div>
+
+
+
+        <div class="col-12 mt-4">
+              <div class="mb-5 ps-3">
+                <h6 class="mb-1">Les Collections</h6>
+                <p class="text-sm">Découvrez les produits de la communauté !</p>
+              </div>
+              <div class="row" style="row-gap: 80px;">
+              {% for collection in collections %}
+                {{ miniCard.miniCard(collection.id, collection.name, collection.productCount) }}
               {% endfor %}
               </div>
         </div>
