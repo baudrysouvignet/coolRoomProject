@@ -23,7 +23,7 @@ class PublicCollectionController extends AbstractController
     ): Response {
         $userCollection = new UserCollection();
         $userCollection->setUser($this->getUser());
-       $form = $this->createForm(PublicUserCollectionType::class, $userCollection);
+        $form = $this->createForm(PublicUserCollectionType::class, $userCollection);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -32,7 +32,7 @@ class PublicCollectionController extends AbstractController
             $entityManager->persist($userCollection);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_collection_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('pages/public_collection/new.html.twig', [
