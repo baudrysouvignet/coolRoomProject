@@ -23,7 +23,7 @@ class PublicCollectionController extends AbstractController
     ): Response {
         $userCollection = new UserCollection();
         $userCollection->setUser($this->getUser());
-        $form = $this->createForm(PublicUserCollectionType::class, $userCollection);
+       $form = $this->createForm(PublicUserCollectionType::class, $userCollection);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

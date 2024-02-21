@@ -19,7 +19,7 @@
             {{description}}
         </p>
         <div class="d-flex align-items-center justify-content-between">
-            <a href="{{ path(path) }}" style="width: 100%;"><button type="button" class="btn btn-outline-primary btn-sm mb-0 w-100">Voire</button></a>
+            <a href="{{ path }}" style="width: 100%;"><button type="button" class="btn btn-outline-primary btn-sm mb-0 w-100">Voire</button></a>
             {% if delete %}
                 <a href="{{ path('remove_public_collection', {'id': delete[0], 'product': delete[1]}) }}"><button type="button" class="btn btn-outline-dawarningnger btn-sm mb-0">Supprimer</button></a>
             {% endif %}
