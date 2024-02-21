@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% import 'insert/_form-row.html.twig' as formRow %}
+
+{% block title %}Hello PublicProductController!{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-2 px-md-4">
+          <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('{{'/uploads/images/' ~ product.image}}');">
+            <span class="mask  bg-gradient-primary  opacity-6"></span>
+          </div>
+          <div class="card card-body mx-3 mx-md-4 mt-n6">
+            <div class="row gx-4 mb-2">
+              <div class="col-auto my-auto">
+                <div class="h-100">
+                  <h5 class="mb-1">
+                    {{product.title}}
+                  </h5>
+                  <p class="mb-0 font-weight-normal text-sm">
+                  {% if app.user %}
+                    {% if userColletion != [] %}
+                    <form action="#" method="post">
+                      <select class="form-select" name="selectOption">
+                        {% for userCollection in userColletion %}
+                          <option value="{{userCollection.id}}">{{userCollection.name}}</option>
+                        {% endfor %}
+                      </select>
+                      <button type="submit" class="btn btn-outline-primary mt-4">Ajouter dans ma collection</button>
+                    </form>
+                    {% else %}
+                      <a href="{{ path('add_public_collection') }}"><button type="submit" class="btn btn-outline-primary mt-4">Créer une collection</button></a>
+                    {% endif %}
+                  {% endif %}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid px-2 px-md-4 mt-5">
+          {{product.description}}
+
+          <div class="mt-10">
+          {% if app.user %}
+            {{ form_start(form) }}
+              {{ formRow.formRow(form.note) }} 
+              {{ formRow.formRow(form.description) }} 
+
+              <button type="submit" class="btn btn-outline-primary mt-4">Donner son avis</button>  
+          {{ form_end(form) }}
+          {% endif %}
+          </div>
+
+          <div class="mt-5">
+
+            {% for review in reviews %}
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title"> 
+                    Avis: {{review.note}}/5 {{ review.userReview.email}}
+                  </h5>
+                  <p class="card-text">
+                    {{review.description}}
+                    </p>
+                </div>
+              </div>
+
+            {% endfor %}
+          </div>
+        </div>
+{% endblock %}
