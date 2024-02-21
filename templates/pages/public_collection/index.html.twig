@@ -53,7 +53,7 @@
                     </div>
                     <div class="row" style="row-gap: 80px;">
                         {% for product in products %}
-                            {{ card.card(product.title, product.createdAt, product.description, 'app_home', product.image, [collection.id,product.id]) }}
+                            {{ card.card(product.title, product.createdAt, product.description, path('app_public_product', {'id' :product.id }), product.image, [collection.id,product.id]) }}
                         {% endfor %}
                     </div>
                 </div>
